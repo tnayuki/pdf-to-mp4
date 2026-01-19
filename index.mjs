@@ -208,7 +208,7 @@ async function pdfToMp4(
           .join(";");
 
         const mixInputs = audioInputs.map((_, idx) => `[a${idx}]`).join("");
-        const filterComplex = `${delayFilters};${mixInputs}amix=inputs=${audioInputs.length}:duration=longest[aout]`;
+        const filterComplex = `${delayFilters};${mixInputs}amix=inputs=${audioInputs.length}:duration=longest,loudnorm=I=-16:TP=-1.5:LRA=11[aout]`;
 
         command = command
           .complexFilter(filterComplex)

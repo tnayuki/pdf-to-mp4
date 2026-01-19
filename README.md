@@ -7,6 +7,7 @@ Convert PDF files to MP4 videos with optional per-page audio narration.
 - Convert each PDF page to a video frame
 - Optional audio narration for each page
 - Automatic page duration based on audio length
+- Audio noise reduction (RNNoise) and loudness normalization
 - Image caching for faster re-encoding
 - Customizable resolution and frame rate
 
@@ -70,6 +71,10 @@ presentation-audio/
 Supported formats: `.mp3`, `.wav`, `.m4a`, `.aac`, `.ogg`
 
 Each page will display for the duration of its audio file plus a 1-second interval before the next page. Pages without audio will display for 1 second.
+
+## Credits
+
+Audio noise reduction uses the [somnolent-hogwash](https://github.com/GregorR/rnnoise-models) RNNoise model.
 
 ## License
 

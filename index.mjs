@@ -9,6 +9,10 @@ import { writeFile, mkdir, stat, readdir, rm } from "fs/promises";
 import { basename, dirname, join, resolve } from "path";
 import { existsSync } from "fs";
 import { tmpdir } from "os";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const rnnoiseModel = join(__dirname, "sh.rnnn");
 
 async function getCacheDir(pdfPath) {
   const absolutePath = resolve(pdfPath);
@@ -208,7 +212,7 @@ async function pdfToMp4(
           .join(";");
 
         const mixInputs = audioInputs.map((_, idx) => `[a${idx}]`).join("");
-        const filterComplex = `${delayFilters};${mixInputs}amix=inputs=${audioInputs.length}:duration=longest,highpass=f=80,afftdn=nf=-25,loudnorm=I=-16:TP=-1.5:LRA=11[aout]`;
+        const filterComplex = `${delayFilters};${mixInputs}amix=inputs=${audioInputs.length}:duration=longest,arnndn=m=${rnnoiseModel},loudnorm=I=-14:TP=-1.5:LRA=11[aout]`;
 
         command = command
           .complexFilter(filterComplex)
